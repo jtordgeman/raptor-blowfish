@@ -12,11 +12,10 @@ export class BlowfishCipherECB implements Cipher {
 
     encrypt(input: string): string {
         let result = '';
-        const data = Buffer.concat([this.cipher.update(utils.pad(input), 'utf-8')]);
+        const data = Buffer.from(this.cipher.update(utils.pad(input), 'utf-8'));
         for (let i = 0; i < data.length; i += 8) {
             result += utils.toBlowfishBase64(data.slice(i, i + 8));
         }
         return `+OK ${result}`;
     }
 }
-

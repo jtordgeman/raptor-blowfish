@@ -1,4 +1,5 @@
-import { Cipher, Decipher } from './models';
+import { Cipher } from './cipher';
+import { Decipher } from './decipher';
 import { BlowfishCipherECB } from './blowfishCipherECB';
 import { BlowfishDecipherECB } from './blowfishDecipherECB';
 
