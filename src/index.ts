@@ -1,5 +1,7 @@
-import { BlowfishCipherECB, BlowfishDecipherECB } from './lib/blowfishECB';
-import { Cipher, Decipher } from './lib/models';
+import { Cipher } from './cipher';
+import { Decipher } from './decipher';
+import { BlowfishCipherECB } from './blowfishCipherECB';
+import { BlowfishDecipherECB } from './blowfishDecipherECB';
 
 export class Fish {
     static createCipher(key: string): Cipher {

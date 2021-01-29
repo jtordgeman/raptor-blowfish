@@ -15,8 +15,8 @@ export const toBlowfishBase64 = (buf: Buffer): string => {
         counter++;
     }
 
-    let left: bigint = BigInt(leftNumber);
-    let right: bigint = BigInt(rightNumber);
+    let left = BigInt(leftNumber);
+    let right = BigInt(rightNumber);
 
     for (let i = 0; i < 6; i++) {
         const n = right & bigShifter;
@@ -32,9 +32,10 @@ export const toBlowfishBase64 = (buf: Buffer): string => {
 
     return result;
 };
-export const pad = (input: string, length: number = 8): string => {
+
+export const pad = (input: string, length = 8): string => {
     if (input.length % length > 0) {
-        let padBytes: number = length - (input.length % length);
+        const padBytes = length - (input.length % length);
         for (let x = 1; x <= padBytes; x++) {
             input += String.fromCharCode(0);
         }
@@ -45,7 +46,7 @@ export const pad = (input: string, length: number = 8): string => {
 
 export const fromBlowfishBase64 = (input: string): Buffer => {
     let s = input;
-    let pack: Buffer[] = [];
+    const pack: Buffer[] = [];
 
     while (s) {
         let left = BigInt(0);
@@ -65,6 +66,5 @@ export const fromBlowfishBase64 = (input: string): Buffer => {
         s = s.substr(12);
     }
 
-    let res = Buffer.concat(pack);
-    return res;
+    return Buffer.concat(pack);
 };
