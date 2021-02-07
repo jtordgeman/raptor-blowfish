@@ -1,3 +1,5 @@
+![npm](https://img.shields.io/npm/v/raptor-blowfish?style=plastic)
+
 # Raptor-Blowfish 🐡
 
 > A TypesScript implementation of the Blowfish cipher to encrypt/decrypt messages in ECB and CBC modes.
