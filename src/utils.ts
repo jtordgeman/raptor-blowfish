@@ -33,14 +33,28 @@ export const toBlowfishBase64 = (buf: Buffer): string => {
     return result;
 };
 
+const padByBlockSize = (input: string, blockSize: number, overrideLength?: number): string => {
+    const inputLength = overrideLength || input.length;
+    const padBytes = blockSize - (inputLength % blockSize);
+    for (let x = 1; x <= padBytes; x++) {
+        input += String.fromCharCode(0);
+    }
+    return input;
+};
+
 export const pad = (input: string, len: number): string => {
     if (input.length % len > 0) {
-        const padBytes = len - (input.length % len);
-        for (let x = 1; x <= padBytes; x++) {
-            input += String.fromCharCode(0);
-        }
+        input = padByBlockSize(input, len);
     }
 
+    return input;
+};
+
+export const padBuffer = (input: Buffer, len: number): Buffer => {
+    if (input.length % len > 0) {
+        const padding = padByBlockSize('', len, input.length);
+        return Buffer.concat([input, Buffer.from(padding)]);
+    }
     return input;
 };
 
