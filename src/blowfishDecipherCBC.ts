@@ -1,5 +1,6 @@
 import { Decipher } from './decipher';
 import * as crypto from 'crypto';
+import * as utils from './utils';
 
 export class BlowfishDecipherCBC implements Decipher {
     constructor(private key: string) {}
@@ -12,7 +13,7 @@ export class BlowfishDecipherCBC implements Decipher {
         const message = input.split('*')[1];
         const decodedMessage = Buffer.from(message, 'base64');
         const IV = decodedMessage.slice(0, 8);
-        const payload = decodedMessage.slice(8);
+        const payload = utils.padBuffer(decodedMessage.slice(8), 8);
 
         const decipher = crypto.createDecipheriv('bf-cbc', Buffer.from(this.key), IV);
         decipher.setAutoPadding(false);
