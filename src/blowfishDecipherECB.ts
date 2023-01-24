@@ -3,17 +3,15 @@ import * as crypto from 'crypto';
 import * as utils from './utils';
 
 export class BlowfishDecipherECB implements Decipher {
-    private decipher: crypto.Decipher;
-
-    constructor(key: string) {
-        this.decipher = crypto.createDecipheriv('bf-ecb', Buffer.from(key), '');
-        this.decipher.setAutoPadding(false);
-    }
+    constructor(private key: string) {}
 
     decrypt(input: string): string {
         if (!input.startsWith('+OK ') && !input.startsWith('mcps ')) {
             return input;
         }
+
+        const decipher = crypto.createDecipheriv('bf-ecb', Buffer.from(this.key), '');
+        decipher.setAutoPadding(false);
 
         const message = input.split(' ')[1];
         if (message.length % 12) {
@@ -22,7 +20,8 @@ export class BlowfishDecipherECB implements Decipher {
 
         try {
             const raw = utils.fromBlowfishBase64(message).toString('hex');
-            const res = this.decipher.update(raw, 'hex', 'utf-8');
+            const res = decipher.update(raw, 'hex', 'utf-8');
+            decipher.final();
             return res.replace(/\0/g, '');
         } catch (e) {
             console.error('ECB decrypt error: ', e);
