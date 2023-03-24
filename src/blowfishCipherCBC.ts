@@ -10,7 +10,7 @@ export class BlowfishCipherCBC implements Cipher {
         const IV = Buffer.from(input.slice(0, 8));
         const cipher = crypto.createCipheriv('bf-cbc', Buffer.from(this.key), IV);
         cipher.setAutoPadding(false);
-        const encrypted = Buffer.concat([cipher.update(paddedInput), cipher.final()]).toString('base64');
+        const encrypted = Buffer.concat([IV, cipher.update(paddedInput), cipher.final()]).toString('base64');
         return `+OK *${encrypted}`;
     }
 }
