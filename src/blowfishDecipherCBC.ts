@@ -12,8 +12,8 @@ export class BlowfishDecipherCBC implements Decipher {
 
         const message = input.split('*')[1];
         const decodedMessage = Buffer.from(message, 'base64');
-        const IV = decodedMessage.slice(0, 8);
-        const payload = utils.padBuffer(decodedMessage.slice(8), 8);
+        const IV = decodedMessage.subarray(0, 8);
+        const payload = utils.padBuffer(decodedMessage.subarray(8), 8);
 
         const decipher = crypto.createDecipheriv('bf-cbc', Buffer.from(this.key), IV);
         decipher.setAutoPadding(false);
