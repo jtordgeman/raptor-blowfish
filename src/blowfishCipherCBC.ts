@@ -3,7 +3,7 @@ import * as crypto from 'crypto';
 import * as utils from './utils';
 
 export class BlowfishCipherCBC implements Cipher {
-    constructor(private key: string) {}
+    constructor(private readonly key: string) {}
 
     encrypt(input: string): string {
         const paddedInput = utils.padBuffer(Buffer.from(input, 'utf8'), 8);

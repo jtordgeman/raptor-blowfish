@@ -2,7 +2,7 @@
 
 # Raptor-Blowfish 🐡
 
-> A TypesScript implementation of the Blowfish cipher to encrypt/decrypt messages in ECB and CBC modes.
+> A TypeScript implementation of the Blowfish cipher to encrypt/decrypt messages in ECB and CBC modes.
 
 ## Installation
 
@@ -11,22 +11,22 @@ npm install raptor-blowfish
 ```
 
 ## Usage
-```javascript
+```ts
 import { Fish } from 'raptor-blowfish';
 
-//ECB
+// ECB
 const enc = Fish.createCipher('myLovelyKey');
 const encrypted = enc.encrypt('Toxic'); // +OK O3mP5.mY3eCZ
 
 const dec = Fish.createDecipher('myLovelyKey');
-const decrypted = dec.decrypt('+OK O3mP5.mY3eCZ') // Toxic
+const decrypted = dec.decrypt('+OK O3mP5.mY3eCZ'); // Toxic
 
-//CBC
+// CBC
 const cbcEnc = Fish.createCipher('cbc:myLovelyKey');
-const cbcEncrypted =  enc.encrypt('Toxic');
+const cbcEncrypted = cbcEnc.encrypt('Toxic');
 
 const cbcDec = Fish.createDecipher('cbc:myLovelyKey');
-const cbcDecrypted = dec.decrypt(cbcEncrypted) // Toxic
+const cbcDecrypted = cbcDec.decrypt(cbcEncrypted); // Toxic
 ```
 
 

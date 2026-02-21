@@ -20,3 +20,14 @@ test('cbc encrypt/decrypt', () => {
     const encrypted2 = enc.encrypt('Oops! I think I did it again');
     expect(dec.decrypt(encrypted2)).toBe('Oops! I think I did it again');
 });
+
+test('ecb decrypt returns input for malformed payload', () => {
+    const dec = Fish.createDecipher('IHeartBritney');
+    expect(dec.decrypt('+OK this-is-not-fish-base64')).toBe('+OK this-is-not-fish-base64');
+});
+
+test('cbc decrypt returns input for malformed payload', () => {
+    const dec = Fish.createDecipher('cbc:IHeartBritney');
+    expect(dec.decrypt('+OK *not-base64')).toBe('+OK *not-base64');
+    expect(dec.decrypt('+OK *')).toBe('+OK *');
+});

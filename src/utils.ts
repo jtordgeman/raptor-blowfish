@@ -77,7 +77,7 @@ export const fromBlowfishBase64 = (input: string): Buffer => {
 
         pack.push(buffer);
 
-        s = s.substr(12);
+        s = s.slice(12);
     }
 
     return Buffer.concat(pack);
