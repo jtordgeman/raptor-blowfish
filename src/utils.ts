@@ -10,8 +10,8 @@ export const toBlowfishBase64 = (buf: Buffer): string => {
     let counter = 0;
 
     for (let i = 3; i >= 0; i--) {
-        leftNumber += buf[counter] << (8 * i);
-        rightNumber += buf[counter + 4] << (8 * i);
+        leftNumber = (leftNumber + (buf[counter] << (8 * i))) >>> 0;
+        rightNumber = (rightNumber + (buf[counter + 4] << (8 * i))) >>> 0;
         counter++;
     }
 
@@ -67,8 +67,8 @@ export const fromBlowfishBase64 = (input: string): Buffer => {
         let right = BigInt(0);
 
         for (let i = 0; i < 6; i++) {
-            right = right | BigInt(B64.indexOf(s[i]) << (i * 6));
-            left = left | BigInt(B64.indexOf(s[i + 6]) << (i * 6));
+            right = right | (BigInt(B64.indexOf(s[i])) << BigInt(i * 6));
+            left = left | (BigInt(B64.indexOf(s[i + 6])) << BigInt(i * 6));
         }
 
         const buffer = Buffer.alloc(8);
@@ -77,7 +77,7 @@ export const fromBlowfishBase64 = (input: string): Buffer => {
 
         pack.push(buffer);
 
-        s = s.substr(12);
+        s = s.slice(12);
     }
 
     return Buffer.concat(pack);

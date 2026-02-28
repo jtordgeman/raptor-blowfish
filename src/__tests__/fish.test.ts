@@ -2,7 +2,7 @@ import { Fish } from '../index';
 
 test('ecb encrypt', () => {
     const enc = Fish.createCipher('IHeartBritney');
-    expect(enc.encrypt('I think I did it again')).toBe('+OK VIzh1.xk37m/evV2m.CZIU3YISR4D/Pet/2Y');
+    expect(enc.encrypt('I think I did it again')).toBe('+OK VIzh1.xk37m/evV2m.CZIU30ISR4D/Pet/20');
 });
 
 test('ecb decrypt', () => {
@@ -19,4 +19,15 @@ test('cbc encrypt/decrypt', () => {
     expect(dec.decrypt(encrypted)).toBe('Hit me baby one more time!');
     const encrypted2 = enc.encrypt('Oops! I think I did it again');
     expect(dec.decrypt(encrypted2)).toBe('Oops! I think I did it again');
+});
+
+test('ecb decrypt returns input for malformed payload', () => {
+    const dec = Fish.createDecipher('IHeartBritney');
+    expect(dec.decrypt('+OK this-is-not-fish-base64')).toBe('+OK this-is-not-fish-base64');
+});
+
+test('cbc decrypt returns input for malformed payload', () => {
+    const dec = Fish.createDecipher('cbc:IHeartBritney');
+    expect(dec.decrypt('+OK *not-base64')).toBe('+OK *not-base64');
+    expect(dec.decrypt('+OK *')).toBe('+OK *');
 });

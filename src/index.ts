@@ -8,7 +8,7 @@ import { BlowfishDecipherCBC } from './blowfishDecipherCBC';
 export class Fish {
     static createCipher(key: string): Cipher {
         if (key.startsWith('cbc:')) {
-            const actualKey = key.substr(4);
+            const actualKey = key.slice(4);
             return new BlowfishCipherCBC(actualKey);
         } else {
             return new BlowfishCipherECB(key);
@@ -17,7 +17,7 @@ export class Fish {
 
     static createDecipher(key: string): Decipher {
         if (key.startsWith('cbc:')) {
-            const actualKey = key.substr(4);
+            const actualKey = key.slice(4);
             return new BlowfishDecipherCBC(actualKey);
         } else {
             return new BlowfishDecipherECB(key);
