@@ -3,7 +3,7 @@ import { Blowfish } from './blowfish';
 import * as utils from './utils';
 
 export class BlowfishDecipherCBC implements Decipher {
-    constructor(private key: string) {}
+    constructor(private readonly key: string) {}
 
     decrypt(input: string): string {
         if (!input.startsWith('+OK ') && !input.startsWith('mcps ')) {
@@ -17,6 +17,9 @@ export class BlowfishDecipherCBC implements Decipher {
             }
             const message = input.slice(starIndex + 1);
             const decodedMessage = Buffer.from(message, 'base64');
+            if (decodedMessage.length < 8) {
+                return input;
+            }
             const IV = decodedMessage.subarray(0, 8);
             const payload = utils.padBuffer(decodedMessage.subarray(8), 8);
 

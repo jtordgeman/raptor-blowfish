@@ -3,7 +3,7 @@ import { Blowfish } from './blowfish';
 import * as utils from './utils';
 
 export class BlowfishCipherECB implements Cipher {
-    constructor(private key: string) {}
+    constructor(private readonly key: string) {}
 
     encrypt(input: string): string {
         let result = '';

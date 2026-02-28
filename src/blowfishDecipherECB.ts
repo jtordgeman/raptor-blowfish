@@ -3,7 +3,7 @@ import { Blowfish } from './blowfish';
 import * as utils from './utils';
 
 export class BlowfishDecipherECB implements Decipher {
-    constructor(private key: string) {}
+    constructor(private readonly key: string) {}
 
     decrypt(input: string): string {
         if (!input.startsWith('+OK ') && !input.startsWith('mcps ')) {
