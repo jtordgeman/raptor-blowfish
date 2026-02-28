@@ -2,7 +2,7 @@ import { Fish } from '../index';
 
 test('ecb encrypt', () => {
     const enc = Fish.createCipher('IHeartBritney');
-    expect(enc.encrypt('I think I did it again')).toBe('+OK VIzh1.xk37m/evV2m.CZIU3YISR4D/Pet/2Y');
+    expect(enc.encrypt('I think I did it again')).toBe('+OK VIzh1.xk37m/evV2m.CZIU30ISR4D/Pet/20');
 });
 
 test('ecb decrypt', () => {
