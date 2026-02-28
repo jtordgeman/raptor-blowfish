@@ -11,7 +11,7 @@ export class BlowfishDecipherECB implements Decipher {
         }
 
         const message = input.split(' ')[1];
-        if (message.length % 12) {
+        if (!message || message.length % 12) {
             return input;
         }
 
