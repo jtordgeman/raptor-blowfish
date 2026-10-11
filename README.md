@@ -28,7 +28,7 @@ const decrypted = dec.decrypt('+OK O3mP5.mY3eCZ'); // Toxic
 
 // CBC
 const cbcEnc = Fish.createCipher('cbc:myLovelyKey');
-const cbcEncrypted = cbcEnc.encrypt('Toxic'); // +OK * <random IV, different each call>
+const cbcEncrypted = cbcEnc.encrypt('Toxic'); // +OK * <IV is the first plaintext block>
 
 const cbcDec = Fish.createDecipher('cbc:myLovelyKey');
 const cbcDecrypted = cbcDec.decrypt(cbcEncrypted); // Toxic
