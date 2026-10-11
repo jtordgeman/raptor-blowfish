@@ -21,6 +21,14 @@ test('cbc encrypt/decrypt', () => {
     expect(dec.decrypt(encrypted2)).toBe('Oops! I think I did it again');
 });
 
+test('ecb encrypts and decrypts utf-8 text', () => {
+    const enc = Fish.createCipher('IHeartBritney');
+    const dec = Fish.createDecipher('IHeartBritney');
+    for (const plaintext of ['café', '你好', 'hi 🐡', 'éééé']) {
+        expect(dec.decrypt(enc.encrypt(plaintext))).toBe(plaintext);
+    }
+});
+
 test('ecb decrypt returns input for malformed payload', () => {
     const dec = Fish.createDecipher('IHeartBritney');
     expect(dec.decrypt('+OK this-is-not-fish-base64')).toBe('+OK this-is-not-fish-base64');
